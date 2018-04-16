@@ -1,21 +1,26 @@
 #!/bin/bash
 
 ENV=$1
+PASSWORD="password"
+DEST="NETWORK"
+MASK="MASK"
+GW="IP"
 
 case $ENV in
-        ENV1)
-            PASSWORD="password"
-            GW=IP;;
-        ENV2)
-            PASSWORD="password"
-            GW=IP;;
-        *)
-			PASSWORD="password"
-			GW=IP;;
+	ENV1)
+		PASSWORD="password"
+		DEST="NETWORK"
+		MASK="MASK"
+		GW="IP";;
+	ENV2)
+		PASSWORD="password"
+		DEST="NETWORK"
+		MASK="MASK"
+	    	GW="IP";;		
 esac
 
 # COMMON
-route add -net <DEST> netmask <MASK> gw ${GW}
+route add -net ${DEST} netmask ${MASK} gw ${GW}
 yum -y install salt-minion
 mkdir -p /etc/salt/pki
 echo '{{ vm['priv_key'] }}' > /etc/salt/pki/minion.pem
